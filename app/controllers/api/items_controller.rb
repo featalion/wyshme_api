@@ -56,6 +56,7 @@ module Api
       render json: @item
     end
 
+
     def featured
       @items = load_paginated(Item.featured)
 
@@ -74,6 +75,12 @@ module Api
       render json: @items, each_serializer: ItemSerializer
     end
 
+    def latest_wyshes
+      @wyshes = most_recent_wyshes(5)
+
+      render json: @wyshes
+    end
+
     private
 
     def item_params
@@ -89,5 +96,8 @@ module Api
       set_associations(@item, Category, params[:item][:category_ids])
     end
 
+    def most_recent_wyshes(num)
+      current_user ? ItemWysh.find_by(id: current_user.id).limit(num) : ItemWysh.last(num)
+    end
   end
 end

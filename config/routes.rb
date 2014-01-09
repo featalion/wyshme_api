@@ -19,6 +19,7 @@ WyshmeApi::Application.routes.draw do
       get :featured, on: :collection
       get :liked, on: :collection
       get :wyshed, on: :collection
+      get :latest_wyshes, on: :member
     end
 
     resources :categories, except: [:new] do
