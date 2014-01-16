@@ -34,6 +34,18 @@ module Api
       render json: @category, meta: gen_meta(status)
     end
 
+    def featured_items
+      @items = Item.featured_for_category(params[:category_id])
+
+      render json: @items, each_serializer: ItemSerializer
+    end
+
+    def all_featured_items
+      @items = Item.all_featured
+
+      render json: @items, each_serializer: ItemSerializer
+    end
+
     private
 
     def category_params

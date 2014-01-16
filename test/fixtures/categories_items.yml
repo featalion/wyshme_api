@@ -6,5 +6,6 @@
 category_item_<%= "#{ cat_n }_#{ item_n }" %>:
   category: category_<%= cat_n %>
   item: item_<%= item_n %>
+  featured: <%= n % 2 == 0 ? true : false %>
 <% end %>
 <% end %>

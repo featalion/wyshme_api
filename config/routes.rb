@@ -18,7 +18,10 @@ WyshmeApi::Application.routes.draw do
       put :wysh, on: :member
     end
 
-    resources :categories, except: [:new]
+    resources :categories, except: [:new] do
+      get :featured_items
+    end
+    get '/categories/featured_items', to: "categories#all_featured_items"
     resources :events
   end
 

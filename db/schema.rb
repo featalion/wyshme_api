@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140108220423) do
+ActiveRecord::Schema.define(version: 20140116143446) do
 
   create_table "categories", force: true do |t|
     t.string   "name",        null: false
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20140108220423) do
   create_table "categories_items", id: false, force: true do |t|
     t.integer "category_id", null: false
     t.integer "item_id",     null: false
+    t.boolean "featured"
   end
 
   add_index "categories_items", ["category_id"], name: "index_categories_items_on_category_id"
