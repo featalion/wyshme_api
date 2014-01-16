@@ -135,6 +135,13 @@ class ItemsControllerTest < ActionController::TestCase
     response_and_model_test(item, 'item', true, 'success')
   end
 
+  test "should return all featured items" do
+    get(:featured)
+    assert_response(:success, 'response is not successful')
+    assert_not_nil(assigns(:items), '@items is not assigned')
+    assert_equal(45, assigns(:items).size, '@items size is not 45')
+  end
+
   def default_item
     { name: 'New cool item', description: 'Very nice', price: '12.9' }
   end

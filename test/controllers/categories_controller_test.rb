@@ -92,18 +92,10 @@ class CategoriesControllerTest < ActionController::TestCase
   end
 
   test "should return featured items for category" do
-    get(:featured_items, {category_id: categories(:category_5).id,
-                           access_token: @token})
+    get(:featured_items, {id: categories(:category_5).id})
     assert_response(:success, 'Response is not successfull')
     assert_not_nil(assigns(:items), '@items is not assigned')
     assert_equal(5, assigns(:items).size, '@items size is not equal to 5')
-  end
-
-  test "should return featured items for all categories" do
-    get(:all_featured_items, {access_token: @token})
-    assert_response(:success, 'Response is not successfull')
-    assert_not_nil(assigns(:items), '@items is not assigned')
-    assert_equal(45, assigns(:items).size, '@items size is not equal to 45')
   end
 
   def default_category

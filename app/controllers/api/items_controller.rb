@@ -56,6 +56,12 @@ module Api
       render json: @item
     end
 
+    def featured
+      @items = Item.featured
+
+      render json: @items, each_serializer: ItemSerializer
+    end
+
     private
 
     def item_params
