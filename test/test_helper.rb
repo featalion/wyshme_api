@@ -40,8 +40,10 @@ class ActiveSupport::TestCase
     end
   end
 
-  def response_and_model_test(src, model_name, deleted, status = nil)
-    $stderr.puts @response.code if @response.code.to_i > 200
+  def response_and_model_test(src, model_name, deleted, status)
+    if @response.code.to_i != 200
+      $stderr.puts "\n#{ @response.code }: #{ @response.body }\n"
+    end
     assert_response(:success, 'response is not successful')
 
     assert_not_nil(assigns(model_name.to_sym),
@@ -54,12 +56,17 @@ class ActiveSupport::TestCase
 
     assert_instance_of(Array, res_model[:errors],
                        'errors field is not an Array')
-    if status == 'error'
-      assert_not(res_model[:errors].empty?, 'errors field is empty')
+    case status
+    when 'error'
+      assert_not(res_model[:errors].empty?, 'JSON does not contain errors')
       res_model[:errors].each do |err|
         assert_instance_of(Hash, err, 'error is not a Hash')
         assert_equal(1, err.size, 'error should contain only one field')
       end
+    when 'success'
+      assert(res_model[:errors].empty?, 'JSON contains errors')
+    else
+      assert(false, "Unknown status #{ status }")
     end
 
     check_meta(status)

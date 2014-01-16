@@ -7,4 +7,16 @@ class List < ActiveRecord::Base
   has_many :events, through: :events_lists
 
   validates :user, :name, presence: true
+
+  def ordered_items
+    itms = self.items.to_a
+    if item_order.present?
+      item_order.split(',').each_with_object([]) do |id, res|
+        res << itms.select { |i| i.id == id.to_i }.first
+      end
+    else
+      itms
+    end
+  end
+
 end

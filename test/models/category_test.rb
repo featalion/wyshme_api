@@ -8,6 +8,7 @@ class CategoryTest < ActiveSupport::TestCase
     assert(cat.save, 'Category is not saved')
     assert_equal(cat_name, cat.name, 'Passed and actual names are not equal')
 
+    cat_name = 'Test category 2'
     cat_desc = 'This is very test item, please ignore'
     cat = Category.new(name: cat_name, description: cat_desc)
     assert(cat.save, 'Category is not saved')
@@ -33,13 +34,6 @@ class CategoryTest < ActiveSupport::TestCase
     itms = [items(:item_11), items(:item_33)]
     cat.items = itms
     assert(cat.save, 'Category is not saved after adding items')
-    assert_equal(itms.size, cat.items.size,
-                 'Numbers of assigned and actual items are different')
-
-    itms << items(:item_18)
-    cat = Category.new(name: cat_name, items: itms)
-    assert(cat.save, 'Category with assigned items is not saved')
-    assert_equal(cat_name, cat.name, 'Passed and actual names are not equal')
     assert_equal(itms.size, cat.items.size,
                  'Numbers of assigned and actual items are different')
   end

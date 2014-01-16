@@ -88,7 +88,7 @@ class ListsControllerTest < ActionController::TestCase
   test 'should create list and its associations and then update them' do
     list = default_list
     list.merge!({ item_ids: [ items(:item_0).id,
-                               items(:item_3).id ] })
+                              items(:item_3).id ] })
 
     post(:create, { list: list, access_token: @token })
     response_and_model_test(list, 'list', false, 'success')

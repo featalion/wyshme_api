@@ -14,7 +14,13 @@ class Item < ActiveRecord::Base
     }, default_url: "/images/:style/missing.png"  
 
   validates :name, presence: true
-  validates :image, attachment_presence: true
-  validates_with AttachmentPresenceValidator, attributes: :image
+  validates :image, attachment_presence: true, unless: :test_env?
+  validates_with AttachmentPresenceValidator, attributes: :image, unless: :test_env?
+
+  private
+
+  def test_env?
+    Rails.env == 'test'
+  end
 
 end
