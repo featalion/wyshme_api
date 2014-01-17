@@ -17,14 +17,13 @@ class Item < ActiveRecord::Base
   validates :image, attachment_presence: true, unless: :test_env?
   validates_with AttachmentPresenceValidator, attributes: :image, unless: :test_env?
 
-  scope :featured_for_category, ->(ids) {
-    includes(:categories_items)
-      .where(categories_items: { featured: true, category_id: ids })
+  scope :featured, -> {
+    includes(:categories_items).where(categories_items: { featured: true })
   }
 
-  def self.featured
-    includes(:categories_items).where(categories_items: { featured: true })
-  end
+  scope :featured_for_category, ->(ids) {
+    featured.where(categories_items: { category_id: ids })
+  }
 
   private
 
