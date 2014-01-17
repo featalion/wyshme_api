@@ -4,8 +4,4 @@ class Category < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
-  def featured_items
-    items.includes(:categories_items).where(categories_items: {featured: true})
-  end
-
 end

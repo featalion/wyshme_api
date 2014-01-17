@@ -21,6 +21,7 @@ WyshmeApi::Application.routes.draw do
 
     resources :categories, except: [:new] do
       get :featured_items, on: :member
+      get :featured_items, on: :collection, to: :all_featured_items
     end
 
     resources :events

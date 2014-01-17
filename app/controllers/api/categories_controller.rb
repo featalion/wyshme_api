@@ -2,8 +2,7 @@ module Api
   class CategoriesController < BaseController
     doorkeeper_for :create, :update, :destroy
 
-    before_action :find_category, only: [:show, :update, :destroy,
-                                         :featured_items]
+    before_action :find_category, only: [:show, :update, :destroy]
 
     def index
       @categories = load_paginated(Category)
@@ -36,7 +35,13 @@ module Api
     end
 
     def featured_items
-      @items = @category.featured_items
+      @items = Item.featured_for_category(params[:id])
+
+      render json: @items, each_serializer: ItemSerializer
+    end
+
+    def all_featured_items
+      @items = Item.featured
 
       render json: @items, each_serializer: ItemSerializer
     end
