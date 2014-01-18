@@ -35,13 +35,13 @@ module Api
     end
 
     def featured_items
-      @items = Item.featured_for_category(params[:id])
+      @items = load_paginated(Item.featured_for_category(params[:id]))
 
       render json: @items, each_serializer: ItemSerializer
     end
 
     def all_featured_items
-      @items = Item.featured
+      @items = load_paginated(Item.featured)
 
       render json: @items, each_serializer: ItemSerializer
     end

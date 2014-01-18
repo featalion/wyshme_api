@@ -98,11 +98,11 @@ class CategoriesControllerTest < ActionController::TestCase
     assert_equal(5, assigns(:items).size, '@items size is not equal to 5')
   end
 
-  test "should return all featured items for all categories" do
+  test "should return first 10 featured items for all categories" do
     get(:all_featured_items)
     assert_response(:success, 'Response is not successfull')
     assert_not_nil(assigns(:items), '@items is not assigned')
-    assert_equal(45, assigns(:items).size, '@items size is not equal to 45')
+    assert_equal(10, assigns(:items).size, '@items size is not equal to 10')
   end
 
   def default_category
