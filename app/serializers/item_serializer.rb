@@ -3,6 +3,10 @@ class ItemSerializer < ActiveModel::Serializer
              :likes, :wyshes, :url, :retailer, :is_deleted, :errors
   has_many :categories
 
+  def image_url
+    object.image.url
+  end
+
   def is_deleted
     object.destroyed?
   end
@@ -11,7 +15,4 @@ class ItemSerializer < ActiveModel::Serializer
     object.errors.map { |f, m| { f => m } }
   end
 
-  def image_url
-    object.image.url
-  end
 end
