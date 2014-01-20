@@ -16,9 +16,14 @@ WyshmeApi::Application.routes.draw do
     resources :items, except: [:new] do
       put :like, on: :member
       put :wysh, on: :member
+      get :featured, on: :collection
     end
 
-    resources :categories, except: [:new]
+    resources :categories, except: [:new] do
+      get :featured_items, on: :member
+      get :featured_items, on: :collection, to: :all_featured_items
+    end
+
     resources :events
   end
 

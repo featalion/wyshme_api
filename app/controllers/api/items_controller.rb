@@ -56,6 +56,12 @@ module Api
       render json: @item
     end
 
+    def featured
+      @items = load_paginated(Item.featured)
+
+      render json: @items, each_serializer: ItemSerializer
+    end
+
     private
 
     def item_params

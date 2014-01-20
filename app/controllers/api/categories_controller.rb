@@ -34,10 +34,22 @@ module Api
       render json: @category, meta: gen_meta(status)
     end
 
+    def featured_items
+      @items = load_paginated(Item.featured_for_category(params[:id]))
+
+      render json: @items, each_serializer: ItemSerializer
+    end
+
+    def all_featured_items
+      @items = load_paginated(Item.featured)
+
+      render json: @items, each_serializer: ItemSerializer
+    end
+
     private
 
     def category_params
-      params.require(:category).permit(:name, :description)
+      params.require(:category).permit(:name, :image, :description)
     end
 
     def find_category
