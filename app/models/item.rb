@@ -22,7 +22,7 @@ class Item < ActiveRecord::Base
     includes(:categories_items).where(categories_items: { featured: true })
   }
 
-  scope :featured_for_category, ->(ids) {
+  scope :featured_for_category, -> (ids) {
     featured.where(categories_items: { category_id: ids })
   }
 
@@ -33,6 +33,12 @@ class Item < ActiveRecord::Base
   scope :wyshed, -> (user_id) {
     joins(:item_wyshes).where(item_wyshes: { user_id: user_id })
   }
+
+  def self.most_recent_wyshes(num, user_id = nil)
+    items = joins(:item_wyshes)
+    items = items.where(item_wyshes: { user_id: user_id }) if user_id
+    items.order('item_wyshes.id DESC').limit(num).uniq
+  end
 
   private
 
