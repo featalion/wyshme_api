@@ -18,8 +18,10 @@ class Item < ActiveRecord::Base
   validates_with AttachmentPresenceValidator,
                  attributes: :image, unless: :test_env?
 
+  scope :with_categories_items, -> { includes(:categories_items) }
+
   scope :featured, -> {
-    includes(:categories_items).where(categories_items: { featured: true })
+    with_categories_items.where(categories_items: { featured: true })
   }
 
   scope :featured_for_category, -> (ids) {
@@ -39,6 +41,10 @@ class Item < ActiveRecord::Base
     items = items.where(item_wyshes: { user_id: user_id }) if user_id
     items.order('item_wyshes.id DESC').limit(num).uniq
   end
+
+  scope :for_category, ->(ids) {
+    with_categories_items.where(categories_items: { category_id: ids })
+  }
 
   private
 
