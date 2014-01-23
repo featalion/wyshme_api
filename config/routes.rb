@@ -17,6 +17,8 @@ WyshmeApi::Application.routes.draw do
       put :like, on: :member
       put :wysh, on: :member
       get :featured, on: :collection
+      get :liked, on: :collection
+      get :wyshed, on: :collection
     end
 
     resources :categories, except: [:new] do

@@ -15,7 +15,8 @@ class Item < ActiveRecord::Base
 
   validates :name, presence: true
   validates :image, attachment_presence: true, unless: :test_env?
-  validates_with AttachmentPresenceValidator, attributes: :image, unless: :test_env?
+  validates_with AttachmentPresenceValidator,
+                 attributes: :image, unless: :test_env?
 
   scope :featured, -> {
     includes(:categories_items).where(categories_items: { featured: true })
@@ -23,6 +24,14 @@ class Item < ActiveRecord::Base
 
   scope :featured_for_category, ->(ids) {
     featured.where(categories_items: { category_id: ids })
+  }
+
+  scope :liked, -> (user_id) {
+    joins(:item_likes).where(item_likes: { user_id: user_id })
+  }
+
+  scope :wyshed, -> (user_id) {
+    joins(:item_wyshes).where(item_wyshes: { user_id: user_id })
   }
 
   private

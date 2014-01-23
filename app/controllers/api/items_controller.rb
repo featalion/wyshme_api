@@ -1,6 +1,6 @@
 module Api
   class ItemsController < BaseController
-    doorkeeper_for :create, :update, :destroy, :like, :wysh
+    doorkeeper_for :create, :update, :destroy, :like, :wysh, :liked, :wyshed
 
     before_action :find_item, only: [:show, :update, :destroy, :like, :wysh]
 
@@ -58,6 +58,18 @@ module Api
 
     def featured
       @items = load_paginated(Item.featured)
+
+      render json: @items, each_serializer: ItemSerializer
+    end
+
+    def liked
+      @items = load_paginated(Item.liked(current_user.id))
+
+      render json: @items, each_serializer: ItemSerializer
+    end
+
+    def wyshed
+      @items = load_paginated(Item.wyshed(current_user.id))
 
       render json: @items, each_serializer: ItemSerializer
     end
