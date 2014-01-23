@@ -74,6 +74,12 @@ module Api
       render json: @items, each_serializer: ItemSerializer
     end
 
+    def latest_wyshes
+      @items = Item.most_recent_wyshes(5, current_user.try(:id))
+
+      render json: @items
+    end
+
     private
 
     def item_params
