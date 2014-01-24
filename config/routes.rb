@@ -23,6 +23,7 @@ WyshmeApi::Application.routes.draw do
     end
 
     resources :categories, except: [:new] do
+      get :items, on: :member
       get :featured_items, on: :member
       get :featured_items, on: :collection, to: :all_featured_items
     end

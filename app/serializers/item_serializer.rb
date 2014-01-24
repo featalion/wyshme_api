@@ -1,6 +1,7 @@
 class ItemSerializer < ActiveModel::Serializer
   attributes :id, :name, :description, :price, :image_url,
-             :likes, :wyshes, :url, :retailer, :is_deleted, :errors
+             :likes, :wyshes, :url, :retailer,
+             :created_at, :updated_at, :is_deleted, :errors
   has_many :categories
 
   def image_url
