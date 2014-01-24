@@ -50,6 +50,12 @@ module Api
       render json: @items, each_serializer: ItemSerializer
     end
 
+    def items
+      @items = load_paginated(Item.for_category(params[:id]))
+
+      render json: @items, each_serializer: ItemSerializer
+    end
+
     private
 
     def category_params

@@ -105,6 +105,13 @@ class CategoriesControllerTest < ActionController::TestCase
     assert_equal(10, assigns(:items).size, '@items size is not equal to 10')
   end
 
+  test "should return first 10 items for category" do
+    get(:items, {id: categories(:category_5).id})
+    assert_response(:success, 'Response is not successfull')
+    assert_not_nil(assigns(:items), '@items is not assigned')
+    assert_equal(10, assigns(:items).size, '@items size is not equal to 10')
+  end
+
   def default_category
     { name: 'New category, really', description: 'Only awesome things here!' }
   end
