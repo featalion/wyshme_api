@@ -26,7 +26,6 @@ WyshmeApi::Application.routes.draw do
       get :items, on: :member
       get :featured_items, on: :member
       get :featured_items, on: :collection, to: :all_featured_items
-      get :items, on: :member
     end
 
     resources :events

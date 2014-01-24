@@ -34,10 +34,6 @@ module Api
       render json: @category, meta: gen_meta(status)
     end
 
-    def items
-      render json: @category.items.to_a, each_serializer: ItemSerializer
-    end
-
     def featured_items
       @items = load_paginated(Item.featured_for_category(params[:id]))
 

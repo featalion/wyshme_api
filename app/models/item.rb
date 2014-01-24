@@ -36,15 +36,15 @@ class Item < ActiveRecord::Base
     joins(:item_wyshes).where(item_wyshes: { user_id: user_id })
   }
 
+  scope :for_category, ->(ids) {
+    with_categories_items.where(categories_items: { category_id: ids })
+  }
+
   def self.most_recent_wyshes(num, user_id = nil)
     items = joins(:item_wyshes)
     items = items.where(item_wyshes: { user_id: user_id }) if user_id
     items.order('item_wyshes.id DESC').limit(num).uniq
   end
-
-  scope :for_category, ->(ids) {
-    with_categories_items.where(categories_items: { category_id: ids })
-  }
 
   private
 
