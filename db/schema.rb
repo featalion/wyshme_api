@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140120005736) do
+ActiveRecord::Schema.define(version: 20140130215329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,20 @@ ActiveRecord::Schema.define(version: 20140120005736) do
 
   add_index "categories_items", ["category_id"], name: "index_categories_items_on_category_id", using: :btree
   add_index "categories_items", ["item_id"], name: "index_categories_items_on_item_id", using: :btree
+
+  create_table "content_shares", force: true do |t|
+    t.integer  "user_id"
+    t.string   "content_type"
+    t.integer  "content_id"
+    t.string   "recipients"
+    t.text     "message"
+    t.boolean  "sent"
+    t.string   "hash_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "content_shares", ["user_id"], name: "index_content_shares_on_user_id", using: :btree
 
   create_table "events", force: true do |t|
     t.integer  "user_id"

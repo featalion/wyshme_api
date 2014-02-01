@@ -1,7 +1,11 @@
 class ListSerializer < ActiveModel::Serializer
   attributes :id, :name, :description, :event, :event_at,
-             :item_order, :user_id, :is_deleted, :errors
+             :item_order, :user_id, :type, :is_deleted, :errors
   has_many :items
+
+  def type
+    object.class.name
+  end
 
   def user_id
     object.user_id

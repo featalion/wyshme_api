@@ -1,0 +1,10 @@
+User <%= @user.name %> shared <%= @type_of_content %> with you on WyshMe!
+========================================================
+
+<% if @user_message.present? %>
+Message: <%= @user_message %>
+<% else %>
+No message given.
+<% end %>
+
+Check the <%= @type_of_content.downcase %> on WyshMe <%= @url %>.
