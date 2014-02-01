@@ -1,6 +1,11 @@
 class EventSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :name, :date, :description
+  attributes :id, :user_id, :name, :date, :description,
+             :type, :is_deleted, :errors
         
+  def type
+    object.class.name
+  end
+
   def is_deleted
     object.destroyed?
   end
