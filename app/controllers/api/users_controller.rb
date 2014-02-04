@@ -44,11 +44,7 @@ module Api
 
     # Returns list of public Wysh Lists
     def wysh
-      list_ids = @user.content_shares
-        .select(:content_id).where(content_type: 'List')
-        .map(&:content_id).uniq
-
-      @pub_lists = @user.lists.where(id: list_ids)
+      @pub_lists = @user.lists.public
 
       render json: @pub_lists
     end

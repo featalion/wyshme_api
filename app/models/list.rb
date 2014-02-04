@@ -9,6 +9,8 @@ class List < ActiveRecord::Base
 
   validates :user, :name, presence: true
 
+  scope :public, -> { where(public: true) }
+
   def ordered_items
     itms = self.items.to_a
     if item_order.present?
@@ -18,6 +20,10 @@ class List < ActiveRecord::Base
     else
       itms
     end
+  end
+
+  def public?
+    self.public
   end
 
 end
