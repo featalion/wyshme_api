@@ -16,6 +16,7 @@
 /tmp
 
 .rvmrc
+.env
 .DS_Store
 TAGS
 

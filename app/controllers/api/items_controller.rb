@@ -2,7 +2,8 @@ module Api
   class ItemsController < BaseController
     doorkeeper_for :create, :update, :destroy, :like, :wysh, :liked, :wyshed
 
-    before_action :find_item, only: [:show, :update, :destroy, :like, :wysh]
+    before_action :find_item,
+                  only: [:show, :update, :destroy, :like, :wysh, :share]
 
     def index
       @items = load_paginated(Item)
@@ -78,6 +79,13 @@ module Api
       @items = Item.most_recent_wyshes(5, current_user.try(:id))
 
       render json: @items
+    end
+
+    def share
+      cs_params = content_share_params 'Item', @item.id
+      @content_share = current_user.content_shares.create cs_params
+
+      render json: @content_share
     end
 
     private

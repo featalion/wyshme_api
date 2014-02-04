@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   has_many :item_wyshes
   has_many :wyshed_items, through: :item_wyshes, class_name: :item
 
+  has_many :content_shares
+
   validates :email,
             presence: true,
             uniqueness: { case_sensitive: false },
@@ -23,6 +25,11 @@ class User < ActiveRecord::Base
 
   def access_token
     Doorkeeper::AccessToken.where(resource_owner_id: self.id).first.try(:token)
+  end
+
+  def name
+    @name = "#{first_name} #{last_name}"
+    @name.blank? ? email : @name
   end
 
   private

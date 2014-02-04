@@ -2,7 +2,7 @@ module Api
   class EventsController < BaseController
     doorkeeper_for :all
 
-    before_action :find_event, only: [:show, :update, :destroy]
+    before_action :find_event, only: [:show, :update, :destroy, :share]
 
     def index
       @events = load_paginated(Event, true)
@@ -34,6 +34,13 @@ module Api
       status = @event.destroy
 
       render json: @event, meta: gen_meta(status)
+    end
+
+    def share
+      cs_params = content_share_params 'Event', @event.id
+      @content_share = current_user.content_shares.create cs_params
+
+      render json: @content_share
     end
 
     private

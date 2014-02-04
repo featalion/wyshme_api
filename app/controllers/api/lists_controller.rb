@@ -2,7 +2,7 @@ module Api
   class ListsController < BaseController
     doorkeeper_for :all
 
-    before_action :find_list, only: [:show, :update, :destroy]
+    before_action :find_list, only: [:show, :update, :destroy, :share]
 
     def index
       @lists = load_paginated(List, true)
@@ -36,6 +36,13 @@ module Api
       render json: @list, meta: gen_meta(status)
     end
 
+    def share
+      cs_params = content_share_params 'List', @list.id
+      @content_share = current_user.content_shares.create cs_params
+
+      render json: @content_share
+    end
+
     private
 
     def list_params
@@ -43,8 +50,7 @@ module Api
     end
 
     def find_list
-      # TODO: load list only if current user is its owner
-      @list = current_user.lists.where(id: params[:id]).first
+      @list = current_user.lists.find(params[:id])
     end
 
   end

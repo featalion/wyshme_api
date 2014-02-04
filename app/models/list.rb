@@ -1,5 +1,6 @@
 class List < ActiveRecord::Base
   belongs_to :user
+
   has_many :items_lists, dependent: :destroy
   has_many :items, through: :items_lists
 
@@ -7,6 +8,8 @@ class List < ActiveRecord::Base
   has_many :events, through: :events_lists
 
   validates :user, :name, presence: true
+
+  scope :public, -> { where(public: true) }
 
   def ordered_items
     itms = self.items.to_a
@@ -17,6 +20,10 @@ class List < ActiveRecord::Base
     else
       itms
     end
+  end
+
+  def public?
+    self.public
   end
 
 end

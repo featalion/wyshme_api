@@ -1,12 +1,12 @@
 module Api
   class UsersController < BaseController
-    doorkeeper_for :all
+    doorkeeper_for :index, :create, :update, :destroy, :me
     #doorkeeper_for :me
     #doorkeeper_for :create#, scopes: [:public]
     #doorkeeper_for :index, :show#, scopes: [:admin]
     #doorkeeper_for :update, :destroy#, scopes: [:admin]
 
-    before_action :find_user, only: [:show, :update, :destroy]
+    before_action :find_user, only: [:show, :update, :destroy, :wysh]
 
     def index
       @users = load_paginated(User)
@@ -40,6 +40,13 @@ module Api
 
     def me
       render json: current_user
+    end
+
+    # Returns list of public Wysh Lists
+    def wysh
+      @pub_lists = @user.lists.public
+
+      render json: @pub_lists
     end
 
     private

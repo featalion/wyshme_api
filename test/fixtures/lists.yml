@@ -7,6 +7,7 @@ list_<%= list_n %>:
   user: <%= user_name %>
   name: <%= "#{ user_name }'s #{ n } list" %>
   event: Event <%= list_n %>
+  public: <%= n / 2 == 1 %>
 <% list_n += 1 %>
 <% end %>
 <% end %>
