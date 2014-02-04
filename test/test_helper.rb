@@ -64,6 +64,7 @@ class ActiveSupport::TestCase
         assert_equal(1, err.size, 'error should contain only one field')
       end
     when 'success'
+      $stderr.puts res_model[:errors] unless res_model[:errors].empty?
       assert(res_model[:errors].empty?, 'JSON contains errors')
     else
       assert(false, "Unknown status #{ status }")

@@ -48,7 +48,7 @@ class ContentShare < ActiveRecord::Base
   end
 
   def send_share_email
-    UserSharesContentMailer.share_email(self).deliver
+    UserSharesContentMailer.share_email(self).deliver unless Rails.env == 'test'
     self.sent = true
   end
 

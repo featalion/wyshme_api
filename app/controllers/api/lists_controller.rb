@@ -38,9 +38,9 @@ module Api
 
     def share
       cs_params = content_share_params 'List', @list.id
-      @cs = current_user.content_shares.create cs_params
+      @content_share = current_user.content_shares.create cs_params
 
-      render json: @cs
+      render json: @content_share
     end
 
     private

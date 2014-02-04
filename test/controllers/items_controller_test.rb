@@ -135,11 +135,24 @@ class ItemsControllerTest < ActionController::TestCase
     response_and_model_test(item, 'item', true, 'success')
   end
 
-  test "should return first 10 featured items" do
+  test 'should return first 10 featured items' do
     get(:featured)
     assert_response(:success, 'response is not successful')
     assert_not_nil(assigns(:items), '@items is not assigned')
     assert_equal(10, assigns(:items).size, '@items size is not 10')
+  end
+
+  test 'should share item' do
+    item_id = items(:item_1).id
+
+    post(:share,
+         { access_token: @token,
+           id: item_id,
+           recipients: 'test@wyshme.com' })
+    response_and_model_test({ content_type: 'Item',
+                              content_id: item_id,
+                              recipients: 'test@wyshme.com' },
+                            'content_share', false, 'success')
   end
 
   def default_item

@@ -126,6 +126,19 @@ class ListsControllerTest < ActionController::TestCase
     response_and_model_test(list, 'list', true, 'success')
   end
 
+  test 'should share list' do
+    list_id = users(:one).lists.first.id
+
+    post(:share,
+         { access_token:
+           @token, id: list_id,
+           recipients: 'test@wyshme.com' })
+    response_and_model_test({ content_type: 'List',
+                              content_id: list_id,
+                              recipients: 'test@wyshme.com' },
+                            'content_share', false, 'success')
+  end
+
   def default_list
     {
       name: 'Newest list',
