@@ -7,7 +7,7 @@ event_<%= event_n %>:
   user: <%= user_name %>
   name: <%= "#{ user_name }'s #{ n } event" %>
   description: Event <%= event_n %> description
-  date: 2014-01-02 15:30:10
+  date: <%= Time.now + 10.days %>
 <% event_n += 1 %>
 <% end %>
 <% end %>
