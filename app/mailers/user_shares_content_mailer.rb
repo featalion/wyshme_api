@@ -1,5 +1,5 @@
 class UserSharesContentMailer < ActionMailer::Base
-  default from: "wyshme.mailer@gmail.com"
+  default from: "no-reply@wyshme.com"
 
   def share_email(content_share)
     @user = content_share.user
