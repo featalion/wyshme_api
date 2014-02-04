@@ -9,6 +9,7 @@ WyshmeApi::Application.routes.draw do
   namespace :api do
     resources :users, except: [:new] do
       get :me, on: :collection
+      get :wysh, on: :member
     end
 
     resources :lists, except: [:new] do
