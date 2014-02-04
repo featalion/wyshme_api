@@ -1,0 +1,13 @@
+# For both users
+<% event_n = 0 %>
+<% ['one', 'two'].each do |user_name| %>
+# create 5 lists, list indexes are in [0, 9]
+<% 5.times do |n| %>
+event_<%= event_n %>:
+  user: <%= user_name %>
+  name: <%= "#{ user_name }'s #{ n } event" %>
+  description: Event <%= event_n %> description
+  date: 2014-01-02 15:30:10
+<% event_n += 1 %>
+<% end %>
+<% end %>
