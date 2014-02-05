@@ -50,10 +50,6 @@ class Item < ActiveRecord::Base
     items.order('item_wyshes.id DESC').limit(num).uniq
   end
 
-  def for_event(event)
-
-  end
-
   private
 
   def test_env?
