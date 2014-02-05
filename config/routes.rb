@@ -34,6 +34,7 @@ WyshmeApi::Application.routes.draw do
 
     resources :events do
       post :share, on: :member
+      get :items, on: :member
     end
 
     resources :content_shares, only: [:show]
