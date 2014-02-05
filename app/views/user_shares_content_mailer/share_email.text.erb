@@ -1,10 +1,20 @@
-User <%= @user.name %> shared <%= @type_of_content %> with you on WyshMe!
-========================================================
+Hello <%= @recipients %>,
+
+Your friend <%= @user.email %> has shared <%= @type_of_content %> with you on WyshMe!
 
 <% if @user_message.present? %>
-Message: <%= @user_message %>
+<%= @user_message %>
 <% else %>
 No message given.
 <% end %>
 
-Check the <%= @type_of_content.downcase %> on WyshMe <%= @url %>.
+What's WyshMe? It's a way you can find the perfect gift to give your friends and family, making you the best ever gifter because you know it's what your friends and family want. All with just a few clicks, no hassle at all.
+
+Be an awesome gifter by clicking <%= @url %>.
+
+Thanks,
+Your friends at WyshMe
+
+----
+
+WyshMe -- taking the guesswork out of gifting, one click at a time
