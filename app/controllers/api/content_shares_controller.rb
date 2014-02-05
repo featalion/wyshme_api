@@ -3,7 +3,7 @@ module Api
     before_action :find_content_share, only: [:show]
 
     def show
-      render json: @content_share.try(:content)
+      render json: @content_share
     end
 
     private
