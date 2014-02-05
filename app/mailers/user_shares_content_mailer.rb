@@ -4,11 +4,11 @@ class UserSharesContentMailer < ActionMailer::Base
   def share_email(content_share)
     @user = content_share.user
     @url = "http://wyshme.herokuapp.com/shares/#{content_share.hash_id}"
-    @type_of_content = content_share.content_type
+    @type_of_content = t("emails.share.#{content_share.content_type}")
     @user_message = content_share.message
     @recipients = content_share.recipients
 
-    mail to: content_share.recipients,
+    mail to: @recipients,
          subject: "#{@user.email} has shared #{@type_of_content} with you on WyshMe!"
   end
 

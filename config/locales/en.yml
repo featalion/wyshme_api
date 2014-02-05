@@ -20,4 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  emails:
+    share:
+      List: "a Wysh List"
+      Event: "an event"
+      Item: "an item"
