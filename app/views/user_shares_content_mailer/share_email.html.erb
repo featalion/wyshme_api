@@ -4,18 +4,41 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>User <%= @user.name %> shared <%= @type_of_content %> with you on WyshMe!</h1>
+    <p>Hello <%= @recipients.first %>,</p>
+
+    <p>
+      Your friend <%= @user.email %> has shared <%= @type_of_content %> with you on WyshMe!
+    </p>
 
     <p>
       <% if @user_message.present? %>
-        <b>Message:</b> <%= @user_message %>
+        <%= @user_message %>
       <% else %>
         No message given.
       <% end %>
     </p>
 
     <p>
-      Check the <%= @type_of_content.downcase %> on <a href="<%= @url %>">WyshMe</a>.
+      What's WyshMe? It's a way you can find the perfect gift to give your
+      friends and family, making you the best ever gifter because you know
+      it's what your friends and family want. All with just a few clicks,
+      no hassle at all.
     </p>
+
+    <p>
+      Be an awesome gifter by clicking
+      <a href="<%= @url %>"><%= @url %></a>
+    </p>
+
+    <p>
+      Thanks,<br>
+      Your friends at WyshMe
+    </p>
+
+    <p>----</p>
+    <p>
+      WyshMe -- taking the guesswork out of gifting, one click at a time
+    </p>
+
   </body>
 </html>
