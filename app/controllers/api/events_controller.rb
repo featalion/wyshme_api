@@ -2,7 +2,7 @@ module Api
   class EventsController < BaseController
     doorkeeper_for :all
 
-    before_action :find_event, only: [:show, :update, :destroy, :share]
+    before_action :find_event, only: [:show, :update, :destroy, :share, :items]
 
     def index
       @events = load_paginated(Event, true)
@@ -41,6 +41,12 @@ module Api
       @content_share = current_user.content_shares.create cs_params
 
       render json: @content_share
+    end
+
+    def items
+      @items = load_paginated(Item.for_list(@event.lists.select(:id)))
+
+      render json: @items, each_serializer: ItemSerializer
     end
 
     private

@@ -40,6 +40,10 @@ class Item < ActiveRecord::Base
     with_categories_items.where(categories_items: { category_id: ids })
   }
 
+  scope :for_list, -> (ids) {
+    joins(:items_lists).where(items_lists: { list_id: ids })
+  }
+
   def self.most_recent_wyshes(num, user_id = nil)
     items = joins(:item_wyshes)
     items = items.where(item_wyshes: { user_id: user_id }) if user_id

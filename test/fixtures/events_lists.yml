@@ -1,0 +1,11 @@
+# Create relations for 6 lists
+<% event_n = 0 %>
+<% 5.times do |list_n| %>
+# 2 events each
+<% 2.times do |n| %>
+<% event_n += 1 %>
+list_event_<%= "#{ list_n }_#{ event_n }" %>:
+  list: list_<%= list_n %>
+  event: event_<%= event_n %>
+<% end %>
+<% end %>
