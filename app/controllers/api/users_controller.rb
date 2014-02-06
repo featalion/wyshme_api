@@ -42,11 +42,11 @@ module Api
       render json: current_user
     end
 
-    # Returns list of public Wysh Lists
+    # Returns items of public Wysh Lists
     def wysh
-      @pub_lists = @user.lists.public
+      @items = Item.for_user_public_lists(@user)
 
-      render json: @pub_lists
+      render json: @items, each_serializer: ItemSerializer
     end
 
     private

@@ -44,6 +44,10 @@ class Item < ActiveRecord::Base
     joins(:items_lists).where(items_lists: { list_id: ids })
   }
 
+  scope :for_user_public_lists, ->(user){
+    joins(:lists).where(lists: { user_id: user, public: true })
+  }
+
   def self.most_recent_wyshes(num, user_id = nil)
     items = joins(:item_wyshes)
     items = items.where(item_wyshes: { user_id: user_id }) if user_id
